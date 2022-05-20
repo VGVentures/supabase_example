@@ -1,5 +1,8 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+/// {@template supabase_auth_exception}
+/// Abstract class to handle the supabase auth exceptions.
+/// {@endtemplate}
 abstract class SupabaseAuthException implements Exception {
   /// {@macro supabase_auth_exception}
   const SupabaseAuthException(this.error);
