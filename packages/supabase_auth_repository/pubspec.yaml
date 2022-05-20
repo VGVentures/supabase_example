@@ -1,0 +1,20 @@
+name: supabase_auth_repository
+description: Supabase auth repository
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  mocktail: ^0.3.0
+  supabase_auth_client:
+    path: ../supabase_auth_client
+  supabase_flutter: ^0.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^3.0.0
