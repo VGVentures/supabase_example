@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "packages/supabase_auth_client/supabase_auth_client/**"
+      - "packages/supabase_auth_client/**"
       - ".github/workflows/supabase_auth_client.yaml"
     branches:
       - main
@@ -16,4 +16,4 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
     with:
-      working_directory: packages/supabase_auth_client/supabase_auth_client
+      working_directory: packages/supabase_auth_client
