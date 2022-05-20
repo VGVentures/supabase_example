@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:supabase_auth_client/supabase_auth_client.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:test/test.dart';
 
 class FakeGotrueSessionResponse extends Fake implements GotrueSessionResponse {}
 
