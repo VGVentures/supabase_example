@@ -11,7 +11,7 @@ import 'package:very_good_supabase/counter/counter.dart';
 import 'package:very_good_supabase/l10n/l10n.dart';
 
 class CounterPage extends StatelessWidget {
-  const CounterPage();
+  const CounterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
