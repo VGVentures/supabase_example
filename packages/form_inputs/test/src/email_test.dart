@@ -3,7 +3,7 @@ import 'package:form_inputs/form_inputs.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const emailString = 'test@test.com';
+  const emailString = 'test@gmail.com';
   group('Email', () {
     group('constructors', () {
       test('pure creates correct instance', () {
