@@ -33,21 +33,17 @@ void main() {
           () => supabaseAuthClient.signIn(email: email, isWeb: false),
         ).thenAnswer((_) async {});
 
-        await supabaseAuthRepository.signIn(email: email, isWeb: false);
-        verify(
-          () => supabaseAuthClient.signIn(email: email, isWeb: false),
-        ).called(1);
+        expect(
+          supabaseAuthRepository.signIn(email: email, isWeb: false),
+          completes,
+        );
       });
     });
 
     group('SignOut', () {
       test('on Supabase', () async {
         when(() => supabaseAuthClient.signOut()).thenAnswer((_) async {});
-
-        await supabaseAuthRepository.signOut();
-        verify(
-          () => supabaseAuthClient.signOut(),
-        ).called(1);
+        expect(supabaseAuthRepository.signOut(), completes);
       });
     });
   });
