@@ -1,6 +1,5 @@
 name: supabase_auth_repository
 description: Supabase auth repository
-version: 1.0.0+1
 publish_to: none
 
 environment:
