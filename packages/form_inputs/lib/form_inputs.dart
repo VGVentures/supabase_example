@@ -1,3 +1,5 @@
 library form_inputs;
 
-export 'src/form_inputs.dart';
+export 'src/company_name.dart';
+export 'src/email.dart';
+export 'src/user_name.dart';
