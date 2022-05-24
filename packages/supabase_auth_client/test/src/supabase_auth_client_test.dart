@@ -51,13 +51,13 @@ void main() {
         );
       });
 
-      test('with an email throw an error', () async {
+      test('with an email throw SupabaseSignInFailure', () async {
         when(
           () => goTrueClient.signIn(
             email: any(named: 'email'),
             options: any(named: 'options'),
           ),
-        ).thenThrow(SupabaseSignInFailure('oops'));
+        ).thenThrow(Exception('oops'));
 
         expect(
           supabaseAuthClient.signIn(email: email, isWeb: false),
@@ -67,7 +67,7 @@ void main() {
     });
 
     group('SignOut', () {
-      test('on Supabase completes', () async {
+      test('on completes', () async {
         when(() => goTrueClient.signOut()).thenAnswer(
           (_) async => gotrueSessionResponse,
         );
@@ -78,10 +78,10 @@ void main() {
         );
       });
 
-      test('on Supabase failure', () async {
+      test('throw SupabaseSignOutFailure', () async {
         when(
           () => goTrueClient.signOut(),
-        ).thenThrow(SupabaseSignOutFailure('oops'));
+        ).thenThrow(Exception('oops'));
 
         expect(
           supabaseAuthClient.signOut(),
