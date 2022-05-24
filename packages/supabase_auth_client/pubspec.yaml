@@ -1,6 +1,5 @@
 name: supabase_auth_client
 description: Supabase auth client
-version: 1.0.0+1
 publish_to: none
 
 environment:
