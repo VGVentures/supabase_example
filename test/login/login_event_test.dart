@@ -19,20 +19,11 @@ void main() {
       });
     });
 
-    group('LoginEventSignIn', () {
+    group('LoginSubmitted', () {
       test('supports value comparisons', () {
         expect(
-          LoginEventSignIn(email: email, isWeb: false),
-          LoginEventSignIn(email: email, isWeb: false),
-        );
-      });
-    });
-
-    group('LoginEventSignOut', () {
-      test('supports value comparisons', () {
-        expect(
-          LoginEventSignOut(),
-          LoginEventSignOut(),
+          LoginSubmitted(email: email, isWeb: false),
+          LoginSubmitted(email: email, isWeb: false),
         );
       });
     });

@@ -11,8 +11,7 @@ part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc(this._supabaseAuthRepository) : super(const LoginState()) {
-    on<LoginEventSignIn>(_onSignIn);
-    on<LoginEventSignOut>(_onSignOut);
+    on<LoginSubmitted>(_onSignIn);
     on<LoginEmailChanged>(_onEmailChanged);
   }
 
@@ -29,7 +28,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future<void> _onSignIn(
-    LoginEventSignIn event,
+    LoginSubmitted event,
     Emitter<LoginState> emit,
   ) async {
     try {
@@ -38,20 +37,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         email: event.email,
         isWeb: event.isWeb,
       );
-      emit(state.copyWith(status: FormzSubmissionStatus.success));
-    } catch (error) {
-      emit(state.copyWith(status: FormzSubmissionStatus.failure));
-      addError(error);
-    }
-  }
-
-  Future<void> _onSignOut(
-    LoginEventSignOut event,
-    Emitter<LoginState> emit,
-  ) async {
-    try {
-      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
-      await _supabaseAuthRepository.signOut();
       emit(state.copyWith(status: FormzSubmissionStatus.success));
     } catch (error) {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));

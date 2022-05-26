@@ -7,8 +7,8 @@ class LoginEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class LoginEventSignIn extends LoginEvent {
-  const LoginEventSignIn({
+class LoginSubmitted extends LoginEvent {
+  const LoginSubmitted({
     required this.email,
     required this.isWeb,
   });
@@ -16,8 +16,6 @@ class LoginEventSignIn extends LoginEvent {
   final String email;
   final bool isWeb;
 }
-
-class LoginEventSignOut extends LoginEvent {}
 
 class LoginEmailChanged extends LoginEvent {
   const LoginEmailChanged(this.email);

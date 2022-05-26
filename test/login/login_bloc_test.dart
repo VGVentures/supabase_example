@@ -48,7 +48,7 @@ void main() {
       );
     });
 
-    group('LoginEventSignIn', () {
+    group('LoginSubmitted', () {
       blocTest<LoginBloc, LoginState>(
         'emits [submissionInProgress, submissionSuccess] '
         'when sign in succeeds',
@@ -62,7 +62,7 @@ void main() {
         },
         build: () => LoginBloc(supabaseAuthRepository),
         act: (bloc) => bloc.add(
-          LoginEventSignIn(email: validEmailString, isWeb: false),
+          LoginSubmitted(email: validEmailString, isWeb: false),
         ),
         expect: () => <LoginState>[
           LoginState(status: FormzSubmissionStatus.inProgress),
@@ -83,7 +83,7 @@ void main() {
         },
         build: () => LoginBloc(supabaseAuthRepository),
         act: (bloc) => bloc.add(
-          LoginEventSignIn(email: validEmailString, isWeb: false),
+          LoginSubmitted(email: validEmailString, isWeb: false),
         ),
         expect: () => <LoginState>[
           LoginState(status: FormzSubmissionStatus.inProgress),
@@ -91,41 +91,5 @@ void main() {
         ],
       );
     });
-
-    group('LoginEventSignOut', () {
-      blocTest<LoginBloc, LoginState>(
-        'emits [submissionInProgress, submissionSuccess] '
-        'when sign out succeeds',
-        setUp: () {
-          when(() => supabaseAuthRepository.signOut()).thenAnswer((_) async {});
-        },
-        build: () => LoginBloc(supabaseAuthRepository),
-        act: (bloc) => bloc.add(
-          LoginEventSignOut(),
-        ),
-        expect: () => <LoginState>[
-          LoginState(status: FormzSubmissionStatus.inProgress),
-          LoginState(status: FormzSubmissionStatus.success)
-        ],
-      );
-    });
-
-    blocTest<LoginBloc, LoginState>(
-      'emits [submissionInProgress, submissionFailure] '
-      'when sign out fails',
-      setUp: () {
-        when(
-          () => supabaseAuthRepository.signOut(),
-        ).thenThrow(Exception());
-      },
-      build: () => LoginBloc(supabaseAuthRepository),
-      act: (bloc) => bloc.add(
-        LoginEventSignOut(),
-      ),
-      expect: () => <LoginState>[
-        LoginState(status: FormzSubmissionStatus.inProgress),
-        LoginState(status: FormzSubmissionStatus.failure)
-      ],
-    );
   });
 }
