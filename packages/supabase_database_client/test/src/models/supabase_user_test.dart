@@ -32,7 +32,7 @@ void main() {
       expect(SupabaseUser.fromJson(json), equals(supabaseUser));
     });
 
-    test('can be (de)serialized', () {
+    test('can be serialized', () {
       final supabaseUser = SupabaseUser(
         id: 'id',
         userName: 'user name',
