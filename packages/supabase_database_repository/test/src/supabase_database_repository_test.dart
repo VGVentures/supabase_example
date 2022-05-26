@@ -6,7 +6,7 @@ import 'package:supabase_database_repository/supabase_database_repository.dart';
 
 class MockSupabaseRepository extends Mock implements SupabaseDatabaseClient {}
 
-class MockUser extends Mock implements SupabaseUser {}
+class FakeUser extends Fake implements SupabaseUser {}
 
 void main() {
   late SupabaseDatabaseClient supabaseDatabaseClient;
@@ -15,7 +15,7 @@ void main() {
 
   setUp(() {
     supabaseDatabaseClient = MockSupabaseRepository();
-    user = MockUser();
+    user = FakeUser();
     supabaseDatabaseRepository = SupabaseDatabaseRepository(
       supabaseDatabaseClient: supabaseDatabaseClient,
     );
