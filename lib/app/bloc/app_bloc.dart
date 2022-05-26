@@ -9,7 +9,7 @@ part 'app_state.dart';
 class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc() : super(const AppState()) {
     on<AppAuthenticated>(_onAppAuthenticated);
-    on<AppLogoutRequested>(_onLogoutRequest);
+    on<AppUnauthenticated>(_onLogoutRequest);
   }
 
   Future<void> _onAppAuthenticated(
@@ -20,7 +20,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   Future<void> _onLogoutRequest(
-    AppLogoutRequested event,
+    AppUnauthenticated event,
     Emitter<AppState> emit,
   ) async {
     emit(state.copyWith(status: AppStatus.unauthenticated));

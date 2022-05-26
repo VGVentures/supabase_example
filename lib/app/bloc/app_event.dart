@@ -7,7 +7,7 @@ class AppEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AppLogoutRequested extends AppEvent {}
+class AppUnauthenticated extends AppEvent {}
 
 class AppAuthenticated extends AppEvent {
   const AppAuthenticated();

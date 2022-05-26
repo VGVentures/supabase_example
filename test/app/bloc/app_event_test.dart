@@ -13,11 +13,11 @@ void main() {
       });
     });
 
-    group('AppLogoutRequested', () {
+    group('AppUnauthenticated', () {
       test('supports value comparisons', () {
         expect(
-          AppLogoutRequested(),
-          AppLogoutRequested(),
+          AppUnauthenticated(),
+          AppUnauthenticated(),
         );
       });
     });

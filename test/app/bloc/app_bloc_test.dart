@@ -17,7 +17,7 @@ void main() {
         'emits [AppStatus.unauthenticated] when '
         'state is unauthenticated',
         build: AppBloc.new,
-        act: (bloc) => bloc.add(AppLogoutRequested()),
+        act: (bloc) => bloc.add(AppUnauthenticated()),
         expect: () => <AppState>[AppState()],
       );
     });
