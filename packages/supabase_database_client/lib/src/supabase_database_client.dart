@@ -26,7 +26,7 @@ class SupabaseUpdateUserFailure extends SupabaseDatabaseException {
 }
 
 /// {@template supabase_database_client}
-/// Supabase database client.
+/// Supabase database client
 /// {@endtemplate}
 class SupabaseDatabaseClient {
   /// {@macro supabase_database_client}
@@ -43,15 +43,12 @@ class SupabaseDatabaseClient {
       final response = await _supabaseClient
           .from('account')
           .select()
-          .eq('id', _supabaseClient.auth.currentUser!.id)
+          .eq('id', _supabaseClient.auth.currentUser?.id)
           .single()
           .execute();
 
-      final data = response.data as Map<String, dynamic>?;
-      return SupabaseUser(
-        userName: (data?['username'] ?? '') as String,
-        companyName: (data?['companyname'] ?? '') as String,
-      );
+      final data = response.data as Map<String, dynamic>;
+      return SupabaseUser.fromJson(data);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
         SupabaseUserInformationFailure(error),
@@ -63,15 +60,21 @@ class SupabaseDatabaseClient {
   /// Method to update the user information on the profiles database.
   Future<void> updateUser({required SupabaseUser user}) async {
     try {
-      final updates = {
-        'id': _supabaseClient.auth.currentUser!.id,
-        'username': user.userName,
-        'companyname': user.companyName,
-      };
+      final supabaseUser = SupabaseUser(
+        id: _supabaseClient.auth.currentUser?.id,
+        userName: user.userName,
+        companyName: user.companyName,
+      );
 
-      await _supabaseClient.from('account').upsert(updates).execute();
+      await _supabaseClient
+          .from('account')
+          .upsert(supabaseUser.toJson())
+          .execute();
     } catch (error, stackTrace) {
-      Error.throwWithStackTrace(SupabaseUpdateUserFailure(error), stackTrace);
+      Error.throwWithStackTrace(
+        SupabaseUpdateUserFailure(error),
+        stackTrace,
+      );
     }
   }
 }
