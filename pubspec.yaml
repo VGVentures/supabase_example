@@ -14,7 +14,13 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
+  form_inputs:
+    path: packages/form_inputs
   intl: ^0.17.0
+  supabase_auth_client:
+    path: packages/supabase_auth_client
+  supabase_auth_repository:
+    path: packages/supabase_auth_repository
 
 dev_dependencies:
   bloc_test: ^9.0.3
