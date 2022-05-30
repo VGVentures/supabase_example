@@ -5,4 +5,6 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+export 'initialize_supabase.dart';
 export 'pump_app.dart';
+export 'supabase_local_storage_mock.dart';

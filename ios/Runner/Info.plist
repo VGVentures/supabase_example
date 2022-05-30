@@ -48,5 +48,17 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	 <!-- Add this array for Deep Links -->
+      <key>CFBundleURLTypes</key>
+      <array>
+        <dict>
+          <key>CFBundleTypeRole</key>
+          <string>Editor</string>
+          <key>CFBundleURLSchemes</key>
+          <array>
+            <string>io.supabase.flutterquickstart</string>
+          </array>
+        </dict>
+      </array>
 </dict>
 </plist>
