@@ -71,8 +71,14 @@ void main() {
     );
 
     blocTest<AccountBloc, AccountState>(
-      'emits [valid] and status [AccountStatus.edit] when edit '
-      'the textField and user name is valid',
+      'emits [valid] and status [AccountStatus.edit] when user edits '
+      'the textField and user name and company name are valid',
+      seed: () => AccountState(
+        status: AccountStatus.success,
+        companyName: validCompanyName,
+        userName: validUserName,
+        valid: true,
+      ),
       build: () => AccountBloc(
         supabaseDatabaseRepository,
         supabaseAuthRepository,
@@ -82,6 +88,7 @@ void main() {
         AccountState(
           status: AccountStatus.edit,
           userName: validUserName,
+          companyName: validCompanyName,
           valid: true,
         ),
       ],
@@ -104,27 +111,9 @@ void main() {
         ),
       ],
     );
-
-    blocTest<AccountBloc, AccountState>(
-      'emits [valid] and status [AccountStatus.edit] when edit '
-      'the textField and company name is valid',
-      build: () => AccountBloc(
-        supabaseDatabaseRepository,
-        supabaseAuthRepository,
-      ),
-      act: (bloc) =>
-          bloc.add(AccountCompanyNameChanged(validCompanyNameString)),
-      expect: () => const <AccountState>[
-        AccountState(
-          status: AccountStatus.edit,
-          companyName: validCompanyName,
-          valid: true,
-        ),
-      ],
-    );
   });
 
-  group('GetUserInformation', () {
+  group('AccountUserInformationFetched', () {
     blocTest<AccountBloc, AccountState>(
       'emits [AccountStatus.loading, AccountStatus.success] '
       'when get user information succeeds',
@@ -169,7 +158,7 @@ void main() {
     );
   });
 
-  group('UpdateUser', () {
+  group('AccountUserUpdated', () {
     blocTest<AccountBloc, AccountState>(
       'emits [AccountStatus.loading, AccountStatus.update] '
       'when update user succeeds',
@@ -208,7 +197,7 @@ void main() {
       ],
     );
 
-    group('AccountEventSignOut', () {
+    group('AccountSignedOut', () {
       blocTest<AccountBloc, AccountState>(
         'emits [AccountStatus.loading, AccountStatus.success] '
         'when sign out succeeds',
