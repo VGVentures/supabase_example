@@ -126,3 +126,4 @@ app.*.map.json
 !.idea/dictionaries/
 !.idea/runConfigurations/
 
+assets/.env

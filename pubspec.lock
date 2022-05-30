@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+  android_intent_plus:
+    dependency: transitive
+    description:
+      name: android_intent_plus
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.1"
   args:
     dependency: transitive
     description:
@@ -134,6 +141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.1"
+  email_launcher:
+    dependency: "direct main"
+    description:
+      path: "packages/email_launcher"
+      relative: true
+    source: path
+    version: "0.0.0"
   equatable:
     dependency: "direct main"
     description:

@@ -15,6 +15,9 @@ class LoginSubmitted extends LoginEvent {
 
   final String email;
   final bool isWeb;
+
+  @override
+  List<Object> get props => [email, isWeb];
 }
 
 class LoginEmailChanged extends LoginEvent {
