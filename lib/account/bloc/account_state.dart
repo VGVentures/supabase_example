@@ -32,6 +32,7 @@ class AccountState extends Equatable {
         companyName,
         userName,
         status,
+        valid,
       ];
 
   AccountState copyWith({

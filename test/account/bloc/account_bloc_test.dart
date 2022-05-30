@@ -137,7 +137,7 @@ void main() {
         supabaseDatabaseRepository,
         supabaseAuthRepository,
       ),
-      act: (bloc) => bloc.add(GetUserInformation()),
+      act: (bloc) => bloc.add(AccountGotUserInformation()),
       expect: () => <AccountState>[
         AccountState(status: AccountStatus.loading),
         AccountState(
@@ -161,7 +161,7 @@ void main() {
         supabaseDatabaseRepository,
         supabaseAuthRepository,
       ),
-      act: (bloc) => bloc.add(GetUserInformation()),
+      act: (bloc) => bloc.add(AccountGotUserInformation()),
       expect: () => <AccountState>[
         AccountState(status: AccountStatus.loading),
         AccountState(status: AccountStatus.error)
@@ -182,7 +182,7 @@ void main() {
         supabaseDatabaseRepository,
         supabaseAuthRepository,
       ),
-      act: (bloc) => bloc.add(UpdateUser(user: user)),
+      act: (bloc) => bloc.add(AccountUserUpdated(user: user)),
       expect: () => <AccountState>[
         AccountState(status: AccountStatus.loading),
         AccountState(status: AccountStatus.update)
@@ -201,7 +201,7 @@ void main() {
         supabaseDatabaseRepository,
         supabaseAuthRepository,
       ),
-      act: (bloc) => bloc.add(UpdateUser(user: user)),
+      act: (bloc) => bloc.add(AccountUserUpdated(user: user)),
       expect: () => <AccountState>[
         AccountState(status: AccountStatus.loading),
         AccountState(status: AccountStatus.error)
@@ -220,7 +220,7 @@ void main() {
           supabaseAuthRepository,
         ),
         act: (bloc) => bloc.add(
-          AccountEventSignOut(),
+          AccountSignedOut(),
         ),
         expect: () => <AccountState>[
           AccountState(status: AccountStatus.loading),
@@ -239,7 +239,7 @@ void main() {
           supabaseAuthRepository,
         ),
         act: (bloc) => bloc.add(
-          AccountEventSignOut(),
+          AccountSignedOut(),
         ),
         expect: () => <AccountState>[
           AccountState(status: AccountStatus.loading),

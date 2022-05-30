@@ -51,8 +51,8 @@ void main() {
     group('UpdateUser', () {
       test('supports value comparisons', () {
         expect(
-          UpdateUser(user: user),
-          UpdateUser(user: user),
+          AccountUserUpdated(user: user),
+          AccountUserUpdated(user: user),
         );
       });
     });
@@ -60,8 +60,8 @@ void main() {
     group('AccountEventSignOut', () {
       test('supports value comparisons', () {
         expect(
-          AccountEventSignOut(),
-          AccountEventSignOut(),
+          AccountSignedOut(),
+          AccountSignedOut(),
         );
       });
     });
@@ -69,8 +69,8 @@ void main() {
     group('GetUserInformation', () {
       test('supports value comparisons', () {
         expect(
-          GetUserInformation(),
-          GetUserInformation(),
+          AccountGotUserInformation(),
+          AccountGotUserInformation(),
         );
       });
     });

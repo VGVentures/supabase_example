@@ -7,14 +7,14 @@ class AccountEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetUserInformation extends AccountEvent {
-  const GetUserInformation();
+class AccountGotUserInformation extends AccountEvent {
+  const AccountGotUserInformation();
   @override
   List<Object> get props => [];
 }
 
-class UpdateUser extends AccountEvent {
-  const UpdateUser({
+class AccountUserUpdated extends AccountEvent {
+  const AccountUserUpdated({
     required this.user,
   });
   final SupabaseUser user;
@@ -41,4 +41,4 @@ class AccountCompanyNameChanged extends AccountEvent {
   List<Object> get props => [companyName];
 }
 
-class AccountEventSignOut extends AccountEvent {}
+class AccountSignedOut extends AccountEvent {}

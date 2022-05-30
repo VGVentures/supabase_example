@@ -16,9 +16,9 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     this._supabaseDatabaseRepository,
     this._supabaseAuthRepository,
   ) : super(const AccountState()) {
-    on<GetUserInformation>(_onGetUserInformation);
-    on<UpdateUser>(_onUpdateUser);
-    on<AccountEventSignOut>(_onSignOut);
+    on<AccountGotUserInformation>(_onGetUserInformation);
+    on<AccountUserUpdated>(_onUpdateUser);
+    on<AccountSignedOut>(_onSignOut);
     on<AccountUserNameChanged>(_onUserNameChanged);
     on<AccountCompanyNameChanged>(_onCompanyNameChanged);
   }
@@ -27,7 +27,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   final SupabaseAuthRepository _supabaseAuthRepository;
 
   Future<void> _onGetUserInformation(
-    GetUserInformation event,
+    AccountGotUserInformation event,
     Emitter<AccountState> emit,
   ) async {
     try {
@@ -48,7 +48,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   }
 
   Future<void> _onUpdateUser(
-    UpdateUser event,
+    AccountUserUpdated event,
     Emitter<AccountState> emit,
   ) async {
     try {
@@ -62,7 +62,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   }
 
   Future<void> _onSignOut(
-    AccountEventSignOut event,
+    AccountSignedOut event,
     Emitter<AccountState> emit,
   ) async {
     try {
