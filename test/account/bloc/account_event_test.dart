@@ -69,8 +69,8 @@ void main() {
     group('GetUserInformation', () {
       test('supports value comparisons', () {
         expect(
-          AccountGotUserInformation(),
-          AccountGotUserInformation(),
+          AccountUserInformationFetched(),
+          AccountUserInformationFetched(),
         );
       });
     });

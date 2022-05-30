@@ -137,7 +137,7 @@ void main() {
         supabaseDatabaseRepository,
         supabaseAuthRepository,
       ),
-      act: (bloc) => bloc.add(AccountGotUserInformation()),
+      act: (bloc) => bloc.add(AccountUserInformationFetched()),
       expect: () => <AccountState>[
         AccountState(status: AccountStatus.loading),
         AccountState(
@@ -161,7 +161,7 @@ void main() {
         supabaseDatabaseRepository,
         supabaseAuthRepository,
       ),
-      act: (bloc) => bloc.add(AccountGotUserInformation()),
+      act: (bloc) => bloc.add(AccountUserInformationFetched()),
       expect: () => <AccountState>[
         AccountState(status: AccountStatus.loading),
         AccountState(status: AccountStatus.error)
