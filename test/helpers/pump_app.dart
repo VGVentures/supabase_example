@@ -16,7 +16,6 @@ import 'package:supabase_auth_repository/supabase_auth_repository.dart';
 import 'package:supabase_database_repository/supabase_database_repository.dart';
 import 'package:very_good_supabase/app/app.dart';
 import 'package:very_good_supabase/l10n/l10n.dart';
-import 'package:very_good_supabase/login/login.dart';
 
 class MockSupabaseAuthRepository extends Mock
     implements SupabaseAuthRepository {}
@@ -29,16 +28,12 @@ class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {
   AppState get state => const AppState();
 }
 
-class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
-    implements LoginBloc {}
-
 extension AppTester on WidgetTester {
   Future<void> pumpApp(
     Widget widgetUnderTest, {
     SupabaseAuthRepository? supabaseAuthRepository,
     SupabaseDatabaseRepository? supabaseDatabaseRepository,
     AppBloc? appBloc,
-    LoginBloc? loginBloc,
     TargetPlatform? platform,
     MockNavigator? navigator,
     NavigatorObserver? navigatorObserver,
@@ -55,11 +50,8 @@ extension AppTester on WidgetTester {
                   MockSupabaseDatabaseRepository(),
             ),
           ],
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: appBloc ?? MockAppBloc()),
-              BlocProvider.value(value: loginBloc ?? MockLoginBloc()),
-            ],
+          child: BlocProvider.value(
+            value: appBloc ?? MockAppBloc(),
             child: MaterialApp(
               title: 'Very Good Supabase',
               localizationsDelegates: const [
