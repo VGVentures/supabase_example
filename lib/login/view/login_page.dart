@@ -4,7 +4,7 @@ import 'package:supabase_auth_repository/supabase_auth_repository.dart';
 import 'package:very_good_supabase/login/login.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   static Page page() => const MaterialPage<void>(child: LoginPage());
 

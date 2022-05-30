@@ -2,7 +2,6 @@
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:email_launcher/email_launcher.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -69,7 +68,7 @@ void main() {
       await tester.pumpAndSettle();
 
       verify(
-        () => loginBloc.add(LoginSubmitted(email: testEmail, isWeb: kIsWeb)),
+        () => loginBloc.add(LoginSubmitted(email: testEmail, isWeb: false)),
       ).called(1);
     });
   });
