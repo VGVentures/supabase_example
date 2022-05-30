@@ -13,10 +13,10 @@ import 'package:very_good_supabase/app/app.dart';
 
 class App extends StatelessWidget {
   const App({
-    Key? key,
     required this.supabaseAuthRepository,
     required this.supabaseDatabaseRepository,
-  }) : super(key: key);
+    super.key,
+  });
 
   final SupabaseAuthRepository supabaseAuthRepository;
   final SupabaseDatabaseRepository supabaseDatabaseRepository;

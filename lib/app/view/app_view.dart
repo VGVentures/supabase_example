@@ -8,7 +8,9 @@ import 'package:very_good_supabase/auth_states_supabase/auth.dart';
 import 'package:very_good_supabase/l10n/l10n.dart';
 
 class AppView extends StatefulWidget {
-  const AppView({Key? key}) : super(key: key);
+  const AppView({
+    super.key,
+  });
 
   @override
   State<AppView> createState() => _AppViewState();
