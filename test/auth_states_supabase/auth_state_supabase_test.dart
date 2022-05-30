@@ -54,7 +54,7 @@ void main() {
 }
 
 class AuthStateWidget extends StatefulWidget {
-  const AuthStateWidget({Key? key}) : super(key: key);
+  const AuthStateWidget({super.key});
 
   @override
   State<AuthStateWidget> createState() => _AuthStateWidgetState();
