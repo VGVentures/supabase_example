@@ -21,7 +21,10 @@ dependencies:
     path: packages/supabase_auth_client
   supabase_auth_repository:
     path: packages/supabase_auth_repository
-
+  supabase_database_client:
+    path: packages/supabase_database_client
+  supabase_database_repository:
+    path: packages/supabase_database_repository
 dev_dependencies:
   bloc_test: ^9.0.3
   flutter_test:
