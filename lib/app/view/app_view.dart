@@ -8,9 +8,7 @@ import 'package:very_good_supabase/auth_states_supabase/auth.dart';
 import 'package:very_good_supabase/l10n/l10n.dart';
 
 class AppView extends StatefulWidget {
-  const AppView({
-    super.key,
-  });
+  const AppView({super.key});
 
   @override
   State<AppView> createState() => _AppViewState();
@@ -18,11 +16,6 @@ class AppView extends StatefulWidget {
 
 class _AppViewState extends AuthStateSupabase<AppView> {
   @override
-  void initState() {
-    recoverSupabaseSession();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
