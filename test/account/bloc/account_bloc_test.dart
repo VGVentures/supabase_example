@@ -43,7 +43,7 @@ void main() {
     user = FakeUser();
   });
 
-  test('initial state is AccountBloc', () {
+  test('initial state is AccountState', () {
     expect(
       AccountBloc(
         supabaseDatabaseRepository,
