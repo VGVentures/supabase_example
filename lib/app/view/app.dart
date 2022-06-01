@@ -6,28 +6,32 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:very_good_supabase/counter/counter.dart';
-import 'package:very_good_supabase/l10n/l10n.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_auth_repository/supabase_auth_repository.dart';
+import 'package:supabase_database_repository/supabase_database_repository.dart';
+import 'package:very_good_supabase/app/app.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({
+    required this.supabaseAuthRepository,
+    required this.supabaseDatabaseRepository,
+    super.key,
+  });
+
+  final SupabaseAuthRepository supabaseAuthRepository;
+  final SupabaseDatabaseRepository supabaseDatabaseRepository;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-        colorScheme: ColorScheme.fromSwatch(
-          accentColor: const Color(0xFF13B9FF),
-        ),
-      ),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider.value(value: supabaseAuthRepository),
+        RepositoryProvider.value(value: supabaseDatabaseRepository),
       ],
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
+      child: BlocProvider(
+        create: (context) => AppBloc(),
+        child: const AppView(),
+      ),
     );
   }
 }
