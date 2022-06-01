@@ -6,6 +6,13 @@ void main() {
   const email = 'test@gmail.com';
 
   group('LoginEvent', () {
+    test('supports value comparisons', () {
+      expect(
+        LoginEvent(),
+        LoginEvent(),
+      );
+    });
+
     group('LoginEmailChanged', () {
       test('supports value comparisons', () {
         expect(
