@@ -2,7 +2,6 @@
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_supabase/login/login.dart';
@@ -31,10 +30,7 @@ void main() {
 
     testWidgets('renders a LoginView', (tester) async {
       await tester.pumpApp(
-        BlocProvider.value(
-          value: loginBloc,
-          child: const LoginPage(),
-        ),
+        const LoginPage(),
       );
       expect(find.byType(LoginView), findsOneWidget);
     });
