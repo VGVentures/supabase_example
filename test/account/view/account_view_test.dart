@@ -56,7 +56,7 @@ void main() {
       expect(find.byType(SnackBar), findsOneWidget);
     });
 
-    group('AccountStatus.update adds', () {
+    group('adds', () {
       testWidgets('AccountUserNameChanged when user name is changed',
           (tester) async {
         when(() => accountBloc.state).thenReturn(
