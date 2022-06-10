@@ -5,6 +5,7 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'package:auth_repository/auth_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,13 +13,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
-import 'package:supabase_auth_repository/supabase_auth_repository.dart';
 import 'package:supabase_database_repository/supabase_database_repository.dart';
 import 'package:very_good_supabase/app/app.dart';
 import 'package:very_good_supabase/l10n/l10n.dart';
 
-class MockSupabaseAuthRepository extends Mock
-    implements SupabaseAuthRepository {}
+class MockAuthRepository extends Mock implements AuthRepository {}
 
 class MockSupabaseDatabaseRepository extends Mock
     implements SupabaseDatabaseRepository {}
@@ -31,7 +30,7 @@ class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {
 extension AppTester on WidgetTester {
   Future<void> pumpApp(
     Widget widgetUnderTest, {
-    SupabaseAuthRepository? supabaseAuthRepository,
+    AuthRepository? authRepository,
     SupabaseDatabaseRepository? supabaseDatabaseRepository,
     AppBloc? appBloc,
     TargetPlatform? platform,
@@ -43,7 +42,7 @@ extension AppTester on WidgetTester {
         MultiRepositoryProvider(
           providers: [
             RepositoryProvider.value(
-              value: supabaseAuthRepository ?? MockSupabaseAuthRepository(),
+              value: authRepository ?? MockAuthRepository(),
             ),
             RepositoryProvider.value(
               value: supabaseDatabaseRepository ??

@@ -7,22 +7,21 @@
 
 // ignore_for_file: prefer_const_constructors
 
+import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:supabase_auth_repository/supabase_auth_repository.dart';
 import 'package:supabase_database_repository/supabase_database_repository.dart';
 import 'package:very_good_supabase/app/app.dart';
 
 import '../../helpers/helpers.dart';
 
-class MockSupabaseAuthRepository extends Mock
-    implements SupabaseAuthRepository {}
+class MockAuthRepository extends Mock implements AuthRepository {}
 
 class MockSupabaseDatabaseRepository extends Mock
     implements SupabaseDatabaseRepository {}
 
 void main() {
-  late SupabaseAuthRepository supabaseAuthRepository;
+  late AuthRepository authRepository;
   late SupabaseDatabaseRepository supabaseDatabaseRepository;
 
   group('App', () {
@@ -31,14 +30,14 @@ void main() {
     });
 
     setUp(() async {
-      supabaseAuthRepository = MockSupabaseAuthRepository();
+      authRepository = MockAuthRepository();
       supabaseDatabaseRepository = MockSupabaseDatabaseRepository();
     });
 
     testWidgets('renders AppView', (tester) async {
       await tester.pumpApp(
         App(
-          supabaseAuthRepository: supabaseAuthRepository,
+          authRepository: authRepository,
           supabaseDatabaseRepository: supabaseDatabaseRepository,
         ),
       );

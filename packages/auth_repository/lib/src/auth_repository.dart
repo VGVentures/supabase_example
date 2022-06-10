@@ -1,11 +1,11 @@
 import 'package:supabase_auth_client/supabase_auth_client.dart';
 
-/// {@template supabase_auth_repository}
-/// Supabase auth repository
+/// {@template auth_repository}
+/// SAuth repository
 /// {@endtemplate}
-class SupabaseAuthRepository {
-  /// {@macro supabase_auth_repository}
-  SupabaseAuthRepository({
+class AuthRepository {
+  /// {@macro auth_repository}
+  AuthRepository({
     required SupabaseAuthClient authClient,
   }) : _authClient = authClient;
 

@@ -1,21 +1,21 @@
 import 'dart:async';
 
+import 'package:auth_repository/auth_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
-import 'package:supabase_auth_repository/supabase_auth_repository.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc(this._supabaseAuthRepository) : super(const LoginState()) {
+  LoginBloc(this._authRepository) : super(const LoginState()) {
     on<LoginSubmitted>(_onSignIn);
     on<LoginEmailChanged>(_onEmailChanged);
   }
 
-  final SupabaseAuthRepository _supabaseAuthRepository;
+  final AuthRepository _authRepository;
 
   void _onEmailChanged(LoginEmailChanged event, Emitter<LoginState> emit) {
     final email = Email.dirty(event.email);
@@ -33,7 +33,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     try {
       emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
-      await _supabaseAuthRepository.signIn(
+      await _authRepository.signIn(
         email: event.email,
         isWeb: event.isWeb,
       );

@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:auth_repository/auth_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:supabase_auth_repository/supabase_auth_repository.dart';
 import 'package:supabase_database_client/supabase_database_client.dart';
 import 'package:supabase_database_repository/supabase_database_repository.dart';
 import 'package:very_good_supabase/account/account.dart';
@@ -12,8 +12,7 @@ import 'package:very_good_supabase/account/account.dart';
 class MockSuapabaseDatabaseRepository extends Mock
     implements SupabaseDatabaseRepository {}
 
-class MockSupabaseAuthRepository extends Mock
-    implements SupabaseAuthRepository {}
+class MockAuthRepository extends Mock implements AuthRepository {}
 
 class FakeUser extends Fake implements SupabaseUser {
   @override
@@ -24,7 +23,7 @@ class FakeUser extends Fake implements SupabaseUser {
 
 void main() {
   late SupabaseDatabaseRepository supabaseDatabaseRepository;
-  late SupabaseAuthRepository supabaseAuthRepository;
+  late AuthRepository authRepository;
   late SupabaseUser user;
 
   const invalidUserName = UserName.dirty();
@@ -39,7 +38,7 @@ void main() {
 
   setUp(() {
     supabaseDatabaseRepository = MockSuapabaseDatabaseRepository();
-    supabaseAuthRepository = MockSupabaseAuthRepository();
+    authRepository = MockAuthRepository();
     user = FakeUser();
   });
 
@@ -47,7 +46,7 @@ void main() {
     expect(
       AccountBloc(
         supabaseDatabaseRepository,
-        supabaseAuthRepository,
+        authRepository,
       ).state,
       AccountState(),
     );
@@ -59,7 +58,7 @@ void main() {
       'the textField and user name is invalid',
       build: () => AccountBloc(
         supabaseDatabaseRepository,
-        supabaseAuthRepository,
+        authRepository,
       ),
       act: (bloc) => bloc.add(AccountUserNameChanged('')),
       expect: () => const <AccountState>[
@@ -81,7 +80,7 @@ void main() {
       ),
       build: () => AccountBloc(
         supabaseDatabaseRepository,
-        supabaseAuthRepository,
+        authRepository,
       ),
       act: (bloc) => bloc.add(AccountUserNameChanged(validUserNameString)),
       expect: () => const <AccountState>[
@@ -101,7 +100,7 @@ void main() {
       'the textField and company name is invalid',
       build: () => AccountBloc(
         supabaseDatabaseRepository,
-        supabaseAuthRepository,
+        authRepository,
       ),
       act: (bloc) => bloc.add(AccountCompanyNameChanged('')),
       expect: () => const <AccountState>[
@@ -124,7 +123,7 @@ void main() {
       },
       build: () => AccountBloc(
         supabaseDatabaseRepository,
-        supabaseAuthRepository,
+        authRepository,
       ),
       act: (bloc) => bloc.add(AccountUserInformationFetched()),
       expect: () => <AccountState>[
@@ -148,7 +147,7 @@ void main() {
       },
       build: () => AccountBloc(
         supabaseDatabaseRepository,
-        supabaseAuthRepository,
+        authRepository,
       ),
       act: (bloc) => bloc.add(AccountUserInformationFetched()),
       expect: () => <AccountState>[
@@ -169,7 +168,7 @@ void main() {
       },
       build: () => AccountBloc(
         supabaseDatabaseRepository,
-        supabaseAuthRepository,
+        authRepository,
       ),
       act: (bloc) => bloc.add(AccountUserUpdated(user: user)),
       expect: () => <AccountState>[
@@ -188,7 +187,7 @@ void main() {
       },
       build: () => AccountBloc(
         supabaseDatabaseRepository,
-        supabaseAuthRepository,
+        authRepository,
       ),
       act: (bloc) => bloc.add(AccountUserUpdated(user: user)),
       expect: () => <AccountState>[
@@ -202,11 +201,11 @@ void main() {
         'emits [AccountStatus.loading, AccountStatus.success] '
         'when sign out succeeds',
         setUp: () {
-          when(() => supabaseAuthRepository.signOut()).thenAnswer((_) async {});
+          when(() => authRepository.signOut()).thenAnswer((_) async {});
         },
         build: () => AccountBloc(
           supabaseDatabaseRepository,
-          supabaseAuthRepository,
+          authRepository,
         ),
         act: (bloc) => bloc.add(
           AccountSignedOut(),
@@ -221,11 +220,11 @@ void main() {
         'emits [AccountStatus.loading, AccountStatus.error] '
         'when sign out fails',
         setUp: () {
-          when(() => supabaseAuthRepository.signOut()).thenThrow(Exception());
+          when(() => authRepository.signOut()).thenThrow(Exception());
         },
         build: () => AccountBloc(
           supabaseDatabaseRepository,
-          supabaseAuthRepository,
+          authRepository,
         ),
         act: (bloc) => bloc.add(
           AccountSignedOut(),

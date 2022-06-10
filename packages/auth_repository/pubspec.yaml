@@ -1,5 +1,5 @@
-name: supabase_auth_repository
-description: Supabase auth repository
+name: auth_repository
+description: Auth repository
 publish_to: none
 
 environment:

@@ -1,26 +1,26 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:supabase_auth_client/supabase_auth_client.dart';
-import 'package:supabase_auth_repository/supabase_auth_repository.dart';
 
 class MockSupabaseAuthClient extends Mock implements SupabaseAuthClient {}
 
 void main() {
   late SupabaseAuthClient supabaseAuthClient;
-  late SupabaseAuthRepository supabaseAuthRepository;
+  late AuthRepository authRepository;
   const email = 'test@test.com';
 
   setUp(() {
     supabaseAuthClient = MockSupabaseAuthClient();
-    supabaseAuthRepository = SupabaseAuthRepository(
+    authRepository = AuthRepository(
       authClient: supabaseAuthClient,
     );
   });
-  group('SupabaseAuthRepository', () {
+  group('AuthRepository', () {
     test('can be instantiated', () {
       expect(
-        SupabaseAuthRepository(
+        AuthRepository(
           authClient: supabaseAuthClient,
         ),
         isNotNull,
@@ -34,7 +34,7 @@ void main() {
         ).thenAnswer((_) async {});
 
         expect(
-          supabaseAuthRepository.signIn(email: email, isWeb: false),
+          authRepository.signIn(email: email, isWeb: false),
           completes,
         );
       });
@@ -43,7 +43,7 @@ void main() {
     group('SignOut', () {
       test('on Supabase', () async {
         when(() => supabaseAuthClient.signOut()).thenAnswer((_) async {});
-        expect(supabaseAuthRepository.signOut(), completes);
+        expect(authRepository.signOut(), completes);
       });
     });
   });

@@ -5,10 +5,10 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_auth_client/supabase_auth_client.dart';
-import 'package:supabase_auth_repository/supabase_auth_repository.dart';
 import 'package:supabase_database_client/supabase_database_client.dart';
 import 'package:supabase_database_repository/supabase_database_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -28,8 +28,7 @@ void main() async {
   await bootstrap(() {
     final supabaseAuthClient =
         SupabaseAuthClient(auth: Supabase.instance.client.auth);
-    final supabaseAuthRepository =
-        SupabaseAuthRepository(authClient: supabaseAuthClient);
+    final authRepository = AuthRepository(authClient: supabaseAuthClient);
 
     final supabaseDatabaseClient = SupabaseDatabaseClient(
       supabaseClient: Supabase.instance.client,
@@ -39,7 +38,7 @@ void main() async {
     );
 
     return App(
-      supabaseAuthRepository: supabaseAuthRepository,
+      authRepository: authRepository,
       supabaseDatabaseRepository: supabaseDatabaseRepository,
     );
   });

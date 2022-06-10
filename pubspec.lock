@@ -36,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.8.2"
+  auth_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/auth_repository"
+      relative: true
+    source: path
+    version: "0.0.0"
   bloc:
     dependency: "direct main"
     description:
@@ -639,13 +646,6 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/supabase_auth_client"
-      relative: true
-    source: path
-    version: "0.0.0"
-  supabase_auth_repository:
-    dependency: "direct main"
-    description:
-      path: "packages/supabase_auth_repository"
       relative: true
     source: path
     version: "0.0.0"
