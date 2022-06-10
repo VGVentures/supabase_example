@@ -8,7 +8,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  mocktail: ^0.3.0
   supabase_auth_client:
     path: ../supabase_auth_client
   supabase_flutter: ^0.3.1
@@ -16,4 +15,5 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mocktail: ^0.3.0
   very_good_analysis: ^3.0.0

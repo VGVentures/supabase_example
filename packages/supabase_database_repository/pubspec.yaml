@@ -8,11 +8,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  mocktail: ^0.3.0
   supabase_database_client:
    path: ../supabase_database_client
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mocktail: ^0.3.0
   very_good_analysis: ^3.0.0
