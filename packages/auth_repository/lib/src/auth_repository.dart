@@ -1,7 +1,7 @@
 import 'package:supabase_auth_client/supabase_auth_client.dart';
 
 /// {@template auth_repository}
-/// SAuth repository
+/// Auth repository
 /// {@endtemplate}
 class AuthRepository {
   /// {@macro auth_repository}
