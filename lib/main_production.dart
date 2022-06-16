@@ -9,7 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_auth_client/supabase_auth_client.dart';
 import 'package:supabase_database_client/supabase_database_client.dart';
-import 'package:supabase_database_repository/supabase_database_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:very_good_supabase/app/app.dart';
@@ -25,21 +24,17 @@ void main() async {
   );
 
   await bootstrap(() {
-    final supabaseAuthClient = SupabaseAuthClient(
+    final authClient = SupabaseAuthClient(
       auth: Supabase.instance.client.auth,
     );
-    final userRepository = UserRepository(authClient: supabaseAuthClient);
-
-    final supabaseDatabaseClient = SupabaseDatabaseClient(
+    final databaseClient = SupabaseDatabaseClient(
       supabaseClient: Supabase.instance.client,
     );
-    final supabaseDatabaseRepository = SupabaseDatabaseRepository(
-      supabaseDatabaseClient: supabaseDatabaseClient,
+    final userRepository = UserRepository(
+      authClient: authClient,
+      databaseClient: databaseClient,
     );
 
-    return App(
-      supabaseDatabaseRepository: supabaseDatabaseRepository,
-      userRepository: userRepository,
-    );
+    return App(userRepository: userRepository);
   });
 }

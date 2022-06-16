@@ -5,12 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:supabase_database_client/supabase_database_client.dart';
-import 'package:supabase_database_repository/supabase_database_repository.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:very_good_supabase/account/account.dart';
-
-class MockSuapabaseDatabaseRepository extends Mock
-    implements SupabaseDatabaseRepository {}
 
 class MockUserRepository extends Mock implements UserRepository {}
 
@@ -22,7 +18,6 @@ class FakeUser extends Fake implements SupabaseUser {
 }
 
 void main() {
-  late SupabaseDatabaseRepository supabaseDatabaseRepository;
   late UserRepository userRepository;
   late SupabaseUser user;
 
@@ -37,23 +32,19 @@ void main() {
   const validCompanyName = CompanyName.dirty(validCompanyNameString);
 
   setUp(() {
-    supabaseDatabaseRepository = MockSuapabaseDatabaseRepository();
     userRepository = MockUserRepository();
     user = FakeUser();
   });
 
   test('initial state is AccountState', () {
-    expect(
-      AccountBloc(supabaseDatabaseRepository, userRepository).state,
-      AccountState(),
-    );
+    expect(AccountBloc(userRepository).state, AccountState());
   });
 
   group('AccountUserNameChanged', () {
     blocTest<AccountBloc, AccountState>(
       'emits [invalid] and status [AccountStatus.edit] when edit '
       'the textField and user name is invalid',
-      build: () => AccountBloc(supabaseDatabaseRepository, userRepository),
+      build: () => AccountBloc(userRepository),
       act: (bloc) => bloc.add(AccountUserNameChanged('')),
       expect: () => const <AccountState>[
         AccountState(
@@ -66,7 +57,7 @@ void main() {
     blocTest<AccountBloc, AccountState>(
       'emits [valid] and status [AccountStatus.edit] when user edits '
       'the textField and user name and company name are valid',
-      build: () => AccountBloc(supabaseDatabaseRepository, userRepository),
+      build: () => AccountBloc(userRepository),
       seed: () => AccountState(
         status: AccountStatus.success,
         companyName: validCompanyName,
@@ -89,7 +80,7 @@ void main() {
     blocTest<AccountBloc, AccountState>(
       'emits [invalid] and status [AccountStatus.edit] when edit '
       'the textField and company name is invalid',
-      build: () => AccountBloc(supabaseDatabaseRepository, userRepository),
+      build: () => AccountBloc(userRepository),
       act: (bloc) => bloc.add(AccountCompanyNameChanged('')),
       expect: () => const <AccountState>[
         AccountState(
@@ -106,10 +97,10 @@ void main() {
       'when get user information succeeds',
       setUp: () {
         when(
-          () => supabaseDatabaseRepository.getUserProfile(),
+          () => userRepository.getUserProfile(),
         ).thenAnswer((_) async => user);
       },
-      build: () => AccountBloc(supabaseDatabaseRepository, userRepository),
+      build: () => AccountBloc(userRepository),
       act: (bloc) => bloc.add(AccountUserInformationFetched()),
       expect: () => <AccountState>[
         AccountState(status: AccountStatus.loading),
@@ -127,10 +118,10 @@ void main() {
       'when get user information fails',
       setUp: () {
         when(
-          () => supabaseDatabaseRepository.getUserProfile(),
+          () => userRepository.getUserProfile(),
         ).thenThrow(Exception());
       },
-      build: () => AccountBloc(supabaseDatabaseRepository, userRepository),
+      build: () => AccountBloc(userRepository),
       act: (bloc) => bloc.add(AccountUserInformationFetched()),
       expect: () => <AccountState>[
         AccountState(status: AccountStatus.loading),
@@ -145,10 +136,10 @@ void main() {
       'when update user succeeds',
       setUp: () {
         when(
-          () => supabaseDatabaseRepository.updateUser(user: user),
+          () => userRepository.updateUser(user: user),
         ).thenAnswer((_) async {});
       },
-      build: () => AccountBloc(supabaseDatabaseRepository, userRepository),
+      build: () => AccountBloc(userRepository),
       act: (bloc) => bloc.add(AccountUserUpdated(user: user)),
       expect: () => <AccountState>[
         AccountState(status: AccountStatus.loading),
@@ -161,10 +152,10 @@ void main() {
       'when update user fails',
       setUp: () {
         when(
-          () => supabaseDatabaseRepository.updateUser(user: user),
+          () => userRepository.updateUser(user: user),
         ).thenThrow(Exception());
       },
-      build: () => AccountBloc(supabaseDatabaseRepository, userRepository),
+      build: () => AccountBloc(userRepository),
       act: (bloc) => bloc.add(AccountUserUpdated(user: user)),
       expect: () => <AccountState>[
         AccountState(status: AccountStatus.loading),
@@ -179,7 +170,7 @@ void main() {
         setUp: () {
           when(() => userRepository.signOut()).thenAnswer((_) async {});
         },
-        build: () => AccountBloc(supabaseDatabaseRepository, userRepository),
+        build: () => AccountBloc(userRepository),
         act: (bloc) => bloc.add(
           AccountSignedOut(),
         ),
@@ -195,7 +186,7 @@ void main() {
         setUp: () {
           when(() => userRepository.signOut()).thenThrow(Exception());
         },
-        build: () => AccountBloc(supabaseDatabaseRepository, userRepository),
+        build: () => AccountBloc(userRepository),
         act: (bloc) => bloc.add(
           AccountSignedOut(),
         ),

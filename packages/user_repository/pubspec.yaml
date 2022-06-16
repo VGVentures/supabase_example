@@ -11,6 +11,8 @@ dependencies:
   mocktail: ^0.3.0
   supabase_auth_client:
     path: ../supabase_auth_client
+  supabase_database_client:
+   path: ../supabase_database_client
   supabase_flutter: ^0.3.1
 
 dev_dependencies:

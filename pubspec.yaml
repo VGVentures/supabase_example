@@ -27,8 +27,6 @@ dependencies:
     path: packages/supabase_auth_client
   supabase_database_client:
     path: packages/supabase_database_client
-  supabase_database_repository:
-    path: packages/supabase_database_repository
   supabase_flutter: ^0.3.0
   user_repository:
     path: packages/user_repository
