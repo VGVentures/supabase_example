@@ -11,7 +11,7 @@ void main() {
       expect(
         onGenerateAppViewPages(AppStatus.authenticated, []),
         [
-          isA<MaterialPage>().having(
+          isA<MaterialPage<void>>().having(
             (p) => p.child,
             'child',
             isA<AccountPage>(),
@@ -24,7 +24,7 @@ void main() {
       expect(
         onGenerateAppViewPages(AppStatus.unauthenticated, []),
         [
-          isA<MaterialPage>().having(
+          isA<MaterialPage<void>>().having(
             (p) => p.child,
             'child',
             isA<LoginPage>(),

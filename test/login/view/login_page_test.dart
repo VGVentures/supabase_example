@@ -25,7 +25,7 @@ void main() {
 
   group('LoginPage', () {
     test('has a page', () {
-      expect(LoginPage.page(), isA<MaterialPage>());
+      expect(LoginPage.page(), isA<MaterialPage<void>>());
     });
 
     testWidgets('renders a LoginView', (tester) async {

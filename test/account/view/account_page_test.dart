@@ -13,7 +13,7 @@ void main() {
 
   group('AccountPage', () {
     test('has a page', () {
-      expect(AccountPage.page(), isA<MaterialPage>());
+      expect(AccountPage.page(), isA<MaterialPage<void>>());
     });
 
     testWidgets('renders a AccountView', (tester) async {
