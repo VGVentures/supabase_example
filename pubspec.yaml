@@ -25,13 +25,13 @@ dependencies:
   mocktail_image_network: ^0.3.1
   supabase_auth_client:
     path: packages/supabase_auth_client
-  supabase_auth_repository:
-    path: packages/supabase_auth_repository
   supabase_database_client:
     path: packages/supabase_database_client
   supabase_database_repository:
     path: packages/supabase_database_repository
   supabase_flutter: ^0.3.0
+  user_repository:
+    path: packages/user_repository
 
 dev_dependencies:
   bloc_test: ^9.0.3

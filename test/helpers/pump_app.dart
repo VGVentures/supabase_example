@@ -12,13 +12,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
-import 'package:supabase_auth_repository/supabase_auth_repository.dart';
 import 'package:supabase_database_repository/supabase_database_repository.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:very_good_supabase/app/app.dart';
 import 'package:very_good_supabase/l10n/l10n.dart';
 
-class MockSupabaseAuthRepository extends Mock
-    implements SupabaseAuthRepository {}
+class MockUserRepository extends Mock implements UserRepository {}
 
 class MockSupabaseDatabaseRepository extends Mock
     implements SupabaseDatabaseRepository {}
@@ -31,7 +30,7 @@ class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {
 extension AppTester on WidgetTester {
   Future<void> pumpApp(
     Widget widgetUnderTest, {
-    SupabaseAuthRepository? supabaseAuthRepository,
+    UserRepository? userRepository,
     SupabaseDatabaseRepository? supabaseDatabaseRepository,
     AppBloc? appBloc,
     TargetPlatform? platform,
@@ -43,7 +42,7 @@ extension AppTester on WidgetTester {
         MultiRepositoryProvider(
           providers: [
             RepositoryProvider.value(
-              value: supabaseAuthRepository ?? MockSupabaseAuthRepository(),
+              value: userRepository ?? MockUserRepository(),
             ),
             RepositoryProvider.value(
               value: supabaseDatabaseRepository ??

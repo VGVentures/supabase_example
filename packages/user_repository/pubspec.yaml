@@ -1,5 +1,5 @@
-name: supabase_auth_repository
-description: Supabase auth repository
+name: user_repository
+description: A package which manages the user domain
 publish_to: none
 
 environment:

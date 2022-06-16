@@ -2,48 +2,46 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:supabase_auth_client/supabase_auth_client.dart';
-import 'package:supabase_auth_repository/supabase_auth_repository.dart';
+import 'package:user_repository/user_repository.dart';
 
 class MockSupabaseAuthClient extends Mock implements SupabaseAuthClient {}
 
 void main() {
   late SupabaseAuthClient supabaseAuthClient;
-  late SupabaseAuthRepository supabaseAuthRepository;
+  late UserRepository userRepository;
   const email = 'test@test.com';
 
   setUp(() {
     supabaseAuthClient = MockSupabaseAuthClient();
-    supabaseAuthRepository = SupabaseAuthRepository(
+    userRepository = UserRepository(
       authClient: supabaseAuthClient,
     );
   });
-  group('SupabaseAuthRepository', () {
+  group('UserRepository', () {
     test('can be instantiated', () {
       expect(
-        SupabaseAuthRepository(
-          authClient: supabaseAuthClient,
-        ),
+        UserRepository(authClient: supabaseAuthClient),
         isNotNull,
       );
     });
 
     group('SignIn', () {
-      test('with email', () async {
+      test('with email completes', () async {
         when(
           () => supabaseAuthClient.signIn(email: email, isWeb: false),
         ).thenAnswer((_) async {});
 
         expect(
-          supabaseAuthRepository.signIn(email: email, isWeb: false),
+          userRepository.signIn(email: email, isWeb: false),
           completes,
         );
       });
     });
 
     group('SignOut', () {
-      test('on Supabase', () async {
+      test('completes', () async {
         when(() => supabaseAuthClient.signOut()).thenAnswer((_) async {});
-        expect(supabaseAuthRepository.signOut(), completes);
+        expect(userRepository.signOut(), completes);
       });
     });
   });
