@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supabase_database_client/supabase_database_client.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:very_good_supabase/account/account.dart';
 import 'package:very_good_supabase/auth_states_supabase/auth.dart';
 import 'package:very_good_supabase/gen/gen.dart';
@@ -173,7 +173,8 @@ class _UpdateUserButton extends StatelessWidget {
           ? null
           : () => context.read<AccountBloc>().add(
                 AccountUserUpdated(
-                  user: SupabaseUser(
+                  user: User(
+                    id: state.user.id,
                     userName: state.userName.value,
                     companyName: state.companyName.value,
                   ),

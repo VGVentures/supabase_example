@@ -13,16 +13,16 @@ extension AccountStatusX on AccountStatus {
 
 class AccountState extends Equatable {
   const AccountState({
-    SupabaseUser? user,
+    User? user,
     this.valid = false,
     this.userName = const UserName.pure(),
     this.companyName = const CompanyName.pure(),
     this.status = AccountStatus.initial,
-  }) : user = user ?? SupabaseUser.empty;
+  }) : user = user ?? User.empty;
 
   final UserName userName;
   final CompanyName companyName;
-  final SupabaseUser user;
+  final User user;
   final bool valid;
   final AccountStatus status;
 
@@ -38,7 +38,7 @@ class AccountState extends Equatable {
   AccountState copyWith({
     UserName? userName,
     CompanyName? companyName,
-    SupabaseUser? user,
+    User? user,
     bool? valid,
     AccountStatus? status,
   }) {

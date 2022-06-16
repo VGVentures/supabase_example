@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:supabase_database_client/supabase_database_client.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:very_good_supabase/account/account.dart';
 
 import '../../helpers/helpers.dart';
@@ -99,8 +99,14 @@ void main() {
 
       testWidgets('UpdateUser when UpdateUserButton is pressed',
           (tester) async {
+        final user = User(
+          id: 'id',
+          userName: 'userName',
+          companyName: 'companyName',
+        );
         when(() => accountBloc.state).thenReturn(
           AccountState(
+            user: user,
             status: AccountStatus.success,
             companyName: CompanyName.dirty('companyName'),
             userName: UserName.dirty('userName'),
@@ -120,7 +126,8 @@ void main() {
         verify(
           () => accountBloc.add(
             AccountUserUpdated(
-              user: SupabaseUser(
+              user: User(
+                id: user.id,
                 userName: 'userName',
                 companyName: 'companyName',
               ),
