@@ -9,20 +9,19 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:supabase_auth_repository/supabase_auth_repository.dart';
 import 'package:supabase_database_repository/supabase_database_repository.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:very_good_supabase/app/app.dart';
 
 import '../../helpers/helpers.dart';
 
-class MockSupabaseAuthRepository extends Mock
-    implements SupabaseAuthRepository {}
+class MockUserRepository extends Mock implements UserRepository {}
 
 class MockSupabaseDatabaseRepository extends Mock
     implements SupabaseDatabaseRepository {}
 
 void main() {
-  late SupabaseAuthRepository supabaseAuthRepository;
+  late UserRepository userRepository;
   late SupabaseDatabaseRepository supabaseDatabaseRepository;
 
   group('App', () {
@@ -31,15 +30,15 @@ void main() {
     });
 
     setUp(() async {
-      supabaseAuthRepository = MockSupabaseAuthRepository();
+      userRepository = MockUserRepository();
       supabaseDatabaseRepository = MockSupabaseDatabaseRepository();
     });
 
     testWidgets('renders AppView', (tester) async {
       await tester.pumpApp(
         App(
-          supabaseAuthRepository: supabaseAuthRepository,
           supabaseDatabaseRepository: supabaseDatabaseRepository,
+          userRepository: userRepository,
         ),
       );
 

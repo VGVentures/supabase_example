@@ -5,10 +5,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:supabase_auth_repository/supabase_auth_repository.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:very_good_supabase/login/bloc/login_bloc.dart';
 
-class MockSupabaseRepository extends Mock implements SupabaseAuthRepository {}
+class MockUserRepository extends Mock implements UserRepository {}
 
 void main() {
   const invalidEmailString = 'invalid';
@@ -18,20 +18,20 @@ void main() {
   const validEmail = Email.dirty(validEmailString);
 
   group('LoginBloc', () {
-    late SupabaseAuthRepository supabaseAuthRepository;
+    late UserRepository userRepository;
 
     setUp(() {
-      supabaseAuthRepository = MockSupabaseRepository();
+      userRepository = MockUserRepository();
     });
 
     test('initial state is LoginState', () {
-      expect(LoginBloc(supabaseAuthRepository).state, LoginState());
+      expect(LoginBloc(userRepository).state, LoginState());
     });
 
     group('EmailChanged', () {
       blocTest<LoginBloc, LoginState>(
         'emits [invalid] when email is invalid',
-        build: () => LoginBloc(supabaseAuthRepository),
+        build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginEmailChanged(invalidEmailString)),
         expect: () => const <LoginState>[
           LoginState(email: invalidEmail),
@@ -40,7 +40,7 @@ void main() {
 
       blocTest<LoginBloc, LoginState>(
         'emits [valid] when email is valid',
-        build: () => LoginBloc(supabaseAuthRepository),
+        build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginEmailChanged(validEmailString)),
         expect: () => const <LoginState>[
           LoginState(email: validEmail, valid: true),
@@ -54,13 +54,10 @@ void main() {
         'when sign in succeeds',
         setUp: () {
           when(
-            () => supabaseAuthRepository.signIn(
-              email: validEmailString,
-              isWeb: false,
-            ),
+            () => userRepository.signIn(email: validEmailString, isWeb: false),
           ).thenAnswer((_) async {});
         },
-        build: () => LoginBloc(supabaseAuthRepository),
+        build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(
           LoginSubmitted(email: validEmailString, isWeb: false),
         ),
@@ -75,13 +72,10 @@ void main() {
         'when sign in fails',
         setUp: () {
           when(
-            () => supabaseAuthRepository.signIn(
-              email: validEmailString,
-              isWeb: false,
-            ),
+            () => userRepository.signIn(email: validEmailString, isWeb: false),
           ).thenThrow(Exception());
         },
-        build: () => LoginBloc(supabaseAuthRepository),
+        build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(
           LoginSubmitted(email: validEmailString, isWeb: false),
         ),

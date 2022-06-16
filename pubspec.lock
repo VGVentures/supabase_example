@@ -642,13 +642,6 @@ packages:
       relative: true
     source: path
     version: "0.0.0"
-  supabase_auth_repository:
-    dependency: "direct main"
-    description:
-      path: "packages/supabase_auth_repository"
-      relative: true
-    source: path
-    version: "0.0.0"
   supabase_database_client:
     dependency: "direct main"
     description:
@@ -789,6 +782,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+  user_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/user_repository"
+      relative: true
+    source: path
+    version: "0.0.0"
   vector_math:
     dependency: transitive
     description:
