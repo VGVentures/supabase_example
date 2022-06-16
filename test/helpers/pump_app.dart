@@ -12,15 +12,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
-import 'package:supabase_database_repository/supabase_database_repository.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:very_good_supabase/app/app.dart';
 import 'package:very_good_supabase/l10n/l10n.dart';
 
 class MockUserRepository extends Mock implements UserRepository {}
-
-class MockSupabaseDatabaseRepository extends Mock
-    implements SupabaseDatabaseRepository {}
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {
   @override
@@ -31,7 +27,6 @@ extension AppTester on WidgetTester {
   Future<void> pumpApp(
     Widget widgetUnderTest, {
     UserRepository? userRepository,
-    SupabaseDatabaseRepository? supabaseDatabaseRepository,
     AppBloc? appBloc,
     TargetPlatform? platform,
     MockNavigator? navigator,
@@ -39,16 +34,8 @@ extension AppTester on WidgetTester {
   }) async {
     await mockNetworkImages(
       () async => pumpWidget(
-        MultiRepositoryProvider(
-          providers: [
-            RepositoryProvider.value(
-              value: userRepository ?? MockUserRepository(),
-            ),
-            RepositoryProvider.value(
-              value: supabaseDatabaseRepository ??
-                  MockSupabaseDatabaseRepository(),
-            ),
-          ],
+        RepositoryProvider.value(
+          value: userRepository ?? MockUserRepository(),
           child: BlocProvider.value(
             value: appBloc ?? MockAppBloc(),
             child: MaterialApp(

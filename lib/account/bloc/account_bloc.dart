@@ -5,17 +5,13 @@ import 'package:equatable/equatable.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
 import 'package:supabase_database_client/supabase_database_client.dart';
-import 'package:supabase_database_repository/supabase_database_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 part 'account_event.dart';
 part 'account_state.dart';
 
 class AccountBloc extends Bloc<AccountEvent, AccountState> {
-  AccountBloc(
-    this._supabaseDatabaseRepository,
-    this._userRepository,
-  ) : super(const AccountState()) {
+  AccountBloc(this._userRepository) : super(const AccountState()) {
     on<AccountUserInformationFetched>(_onGetUserInformation);
     on<AccountUserUpdated>(_onUpdateUser);
     on<AccountSignedOut>(_onSignOut);
@@ -23,7 +19,6 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     on<AccountCompanyNameChanged>(_onCompanyNameChanged);
   }
 
-  final SupabaseDatabaseRepository _supabaseDatabaseRepository;
   final UserRepository _userRepository;
 
   Future<void> _onGetUserInformation(
@@ -32,7 +27,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   ) async {
     try {
       emit(state.copyWith(status: AccountStatus.loading));
-      final user = await _supabaseDatabaseRepository.getUserProfile();
+      final user = await _userRepository.getUserProfile();
       emit(
         state.copyWith(
           status: AccountStatus.success,
@@ -53,7 +48,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   ) async {
     try {
       emit(state.copyWith(status: AccountStatus.loading));
-      await _supabaseDatabaseRepository.updateUser(user: event.user);
+      await _userRepository.updateUser(user: event.user);
       emit(state.copyWith(status: AccountStatus.update, valid: false));
     } catch (error) {
       emit(state.copyWith(status: AccountStatus.error));
