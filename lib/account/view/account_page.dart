@@ -7,7 +7,7 @@ import 'package:very_good_supabase/account/account.dart';
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
 
-  static Page page() => const MaterialPage<void>(child: AccountPage());
+  static Page<void> page() => const MaterialPage<void>(child: AccountPage());
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ import 'package:very_good_supabase/login/login.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
-  static Page page() => const MaterialPage<void>(child: LoginPage());
+  static Page<void> page() => const MaterialPage<void>(child: LoginPage());
 
   @override
   Widget build(BuildContext context) {

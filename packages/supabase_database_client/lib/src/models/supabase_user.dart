@@ -1,10 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+part 'supabase_user.g.dart';
+
 /// {@template supabase_user}
 /// Supabase user model
 /// {@endtemplate}
-part 'supabase_user.g.dart';
 
 @JsonSerializable()
 class SupabaseUser extends Equatable {
@@ -14,6 +15,11 @@ class SupabaseUser extends Equatable {
     required this.userName,
     required this.companyName,
   }) : id = id ?? '';
+
+  /// Connect the generated [_$SupabaseUserFromJson] function to the `fromJson`
+  /// factory.
+  factory SupabaseUser.fromJson(Map<String, dynamic> json) =>
+      _$SupabaseUserFromJson(json);
 
   /// Id of the user.
   final String id;
@@ -35,11 +41,7 @@ class SupabaseUser extends Equatable {
     companyName: '',
   );
 
-  /// Connect the generated [_$SupabaseUserFromJson] function to the `fromJson`
-  /// factory.
-  factory SupabaseUser.fromJson(Map<String, dynamic> json) =>
-      _$SupabaseUserFromJson(json);
-
-  /// Connect the generated [_$SupabaseUserToJson] function to the `toJson` method.
+  /// Connect the generated [_$SupabaseUserToJson]
+  /// function to the `toJson` method.
   Map<String, dynamic> toJson() => _$SupabaseUserToJson(this);
 }

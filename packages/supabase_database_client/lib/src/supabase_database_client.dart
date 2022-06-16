@@ -1,6 +1,9 @@
 import 'package:supabase_database_client/src/models/supabase_user.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+/// {@template supabase_database_exception}
+/// A generic supabase database exception.
+/// {@endtemplate}
 abstract class SupabaseDatabaseException implements Exception {
   /// {@macro supabase_database_exception}
   const SupabaseDatabaseException(this.error);

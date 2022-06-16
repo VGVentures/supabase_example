@@ -49,15 +49,15 @@ void main() {
 
   late SupabaseClient supabaseClient;
   late GoTrueClient goTrueClient;
-  late PostgrestResponse postgrestResponse;
-  late PostgrestResponse updatePostgrestResponse;
+  late PostgrestResponse<dynamic> postgrestResponse;
+  late PostgrestResponse<dynamic> updatePostgrestResponse;
   late SupabaseDatabaseClient supabaseDatabaseClient;
   late SupabaseQueryBuilder supabaseQueryBuilder;
   late SupabaseQueryBuilder updateSupabaseQueryBuilder;
   late PostgrestFilterBuilder selectPostgrestFilterBuilder;
   late PostgrestFilterBuilder eqPostgrestFilterBuilder;
-  late PostgrestTransformBuilder postgrestTransformBuilder;
-  late PostgrestBuilder upsertPostgrestBuilder;
+  late PostgrestTransformBuilder<dynamic> postgrestTransformBuilder;
+  late PostgrestBuilder<dynamic> upsertPostgrestBuilder;
   late User user;
 
   setUp(() {
