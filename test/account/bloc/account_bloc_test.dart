@@ -4,13 +4,12 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:supabase_database_client/supabase_database_client.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:very_good_supabase/account/account.dart';
 
 class MockUserRepository extends Mock implements UserRepository {}
 
-class FakeUser extends Fake implements SupabaseUser {
+class FakeUser extends Fake implements User {
   @override
   final String userName = 'username';
   @override
@@ -19,7 +18,7 @@ class FakeUser extends Fake implements SupabaseUser {
 
 void main() {
   late UserRepository userRepository;
-  late SupabaseUser user;
+  late User user;
 
   const invalidUserName = UserName.dirty();
 
@@ -97,7 +96,7 @@ void main() {
       'when get user information succeeds',
       setUp: () {
         when(
-          () => userRepository.getUserProfile(),
+          () => userRepository.getUser(),
         ).thenAnswer((_) async => user);
       },
       build: () => AccountBloc(userRepository),
@@ -117,9 +116,7 @@ void main() {
       'emits [AccountStatus.loading, AccountStatus.error] '
       'when get user information fails',
       setUp: () {
-        when(
-          () => userRepository.getUserProfile(),
-        ).thenThrow(Exception());
+        when(() => userRepository.getUser()).thenThrow(Exception());
       },
       build: () => AccountBloc(userRepository),
       act: (bloc) => bloc.add(AccountUserInformationFetched()),

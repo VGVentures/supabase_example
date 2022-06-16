@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
-import 'package:supabase_database_client/supabase_database_client.dart';
 import 'package:user_repository/user_repository.dart';
 
 part 'account_event.dart';
@@ -27,7 +26,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   ) async {
     try {
       emit(state.copyWith(status: AccountStatus.loading));
-      final user = await _userRepository.getUserProfile();
+      final user = await _userRepository.getUser();
       emit(
         state.copyWith(
           status: AccountStatus.success,

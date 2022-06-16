@@ -1,13 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:supabase_database_client/supabase_database_client.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:very_good_supabase/account/account.dart';
 
-class MockUser extends Mock implements SupabaseUser {}
+class MockUser extends Mock implements User {}
 
 void main() {
-  late SupabaseUser user;
+  late User user;
   const userName = 'user name';
   const companyName = 'company name';
 

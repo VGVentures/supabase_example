@@ -17,7 +17,7 @@ class AccountUserUpdated extends AccountEvent {
   const AccountUserUpdated({
     required this.user,
   });
-  final SupabaseUser user;
+  final User user;
 
   @override
   List<Object> get props => [user];

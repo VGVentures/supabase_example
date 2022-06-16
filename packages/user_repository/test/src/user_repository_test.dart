@@ -10,19 +10,23 @@ class MockSupabaseAuthClient extends Mock implements SupabaseAuthClient {}
 class MockSupabaseDatabaseClient extends Mock
     implements SupabaseDatabaseClient {}
 
-class FakeUser extends Fake implements SupabaseUser {}
-
 void main() {
   late SupabaseAuthClient authClient;
   late SupabaseDatabaseClient databaseClient;
-  late SupabaseUser user;
+  late SupabaseUser supabaseUser;
+  late User user;
   late UserRepository userRepository;
   const email = 'test@test.com';
 
   setUp(() {
     authClient = MockSupabaseAuthClient();
     databaseClient = MockSupabaseDatabaseClient();
-    user = FakeUser();
+    supabaseUser = SupabaseUser(
+      id: 'id',
+      userName: 'userName',
+      companyName: 'companyName',
+    );
+    user = User(id: 'id', userName: 'userName', companyName: 'companyName');
     userRepository = UserRepository(
       authClient: authClient,
       databaseClient: databaseClient,
@@ -39,29 +43,29 @@ void main() {
       );
     });
 
-    group('GetUserProfile', () {
-      test('returns a valid SupabaseUser', () async {
+    group('getUser', () {
+      test('returns a valid user', () async {
         when(
           () => databaseClient.getUserProfile(),
-        ).thenAnswer((_) async => user);
+        ).thenAnswer((_) async => supabaseUser);
 
-        expect(userRepository.getUserProfile(), completion(equals(user)));
+        expect(userRepository.getUser(), completion(equals(user)));
         verify(() => databaseClient.getUserProfile()).called(1);
       });
     });
 
-    group('UpdateUser', () {
+    group('updateUser', () {
       test('on Supabase database', () async {
         when(
-          () => databaseClient.updateUser(user: user),
+          () => databaseClient.updateUser(user: supabaseUser),
         ).thenAnswer((_) async {});
 
         await userRepository.updateUser(user: user);
-        verify(() => databaseClient.updateUser(user: user)).called(1);
+        verify(() => databaseClient.updateUser(user: supabaseUser)).called(1);
       });
     });
 
-    group('SignIn', () {
+    group('signIn', () {
       test('with email completes', () async {
         when(
           () => authClient.signIn(email: email, isWeb: false),
@@ -74,7 +78,7 @@ void main() {
       });
     });
 
-    group('SignOut', () {
+    group('signOut', () {
       test('completes', () async {
         when(() => authClient.signOut()).thenAnswer((_) async {});
         expect(userRepository.signOut(), completes);
