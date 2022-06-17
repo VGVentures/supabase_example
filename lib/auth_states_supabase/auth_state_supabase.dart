@@ -11,7 +11,9 @@ class AuthStateSupabase<T extends StatefulWidget> extends SupabaseAuthState<T> {
 
   @override
   void onAuthenticated(Session session) {
-    context.read<AppBloc>().add(const AppAuthenticated());
+    if (mounted) {
+      context.read<AppBloc>().add(const AppAuthenticated());
+    }
   }
 
 // coverage:ignore-start
