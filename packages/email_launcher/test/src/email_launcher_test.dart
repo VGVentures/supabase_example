@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:email_launcher/email_launcher.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,7 @@ import '../helpers/helpers.dart';
 
 void main() {
   final mock = MockUrlLauncher();
-  const emailLauncher = EmailLauncher();
+  final emailLauncher = EmailLauncher();
 
   setUp(() {
     UrlLauncherPlatform.instance = mock;

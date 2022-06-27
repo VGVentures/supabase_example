@@ -22,13 +22,13 @@ class _LoginViewState extends AuthStateSupabase<LoginView> {
         vertical: 50,
         horizontal: 32,
       ),
-      children: const [
-        _Header(),
-        SizedBox(height: 18),
-        _EmailInput(),
-        SizedBox(height: 28),
-        _SendEmailButton(),
-        SizedBox(height: 28),
+      children: [
+        const _Header(),
+        const SizedBox(height: 18),
+        const _EmailInput(),
+        const SizedBox(height: 28),
+        const _SendEmailButton(),
+        const SizedBox(height: 28),
         if (!kIsWeb) OpenEmailButton()
       ],
     );
@@ -115,10 +115,10 @@ class _SendEmailButton extends StatelessWidget {
 
 @visibleForTesting
 class OpenEmailButton extends StatelessWidget {
-  const OpenEmailButton({
+  OpenEmailButton({
     EmailLauncher? emailLauncher,
     super.key,
-  }) : _emailLauncher = emailLauncher ?? const EmailLauncher();
+  }) : _emailLauncher = emailLauncher ?? EmailLauncher();
 
   final EmailLauncher _emailLauncher;
 
