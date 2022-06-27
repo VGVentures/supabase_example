@@ -17,4 +17,12 @@ class AuthStateSupabase<T extends StatefulWidget> extends SupabaseAuthState<T> {
       context.read<AppBloc>().add(const AppAuthenticated());
     }
   }
+
+// coverage:ignore-start
+  @override
+  void onPasswordRecovery(Session session) {}
+
+  @override
+  void onErrorAuthenticating(String message) {}
+// coverage:ignore-end
 }
