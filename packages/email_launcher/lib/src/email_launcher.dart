@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 /// {@template email_launcher_exception}
 /// Exceptions from the email launcher.
 /// {@endtemplate}
-abstract class EmailLauncherException implements Exception {
+class EmailLauncherException implements Exception {
   /// {@macro email_launcher_exception}
   const EmailLauncherException(this.error);
 
