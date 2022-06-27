@@ -7,6 +7,8 @@ class AuthRequiredState<T extends StatefulWidget>
     extends SupabaseAuthRequiredState<T> {
   @override
   void onUnauthenticated() {
-    context.read<AppBloc>().add(AppUnauthenticated());
+    if (mounted) {
+      context.read<AppBloc>().add(AppUnauthenticated());
+    }
   }
 }

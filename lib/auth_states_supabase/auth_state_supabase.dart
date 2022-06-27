@@ -6,7 +6,9 @@ import 'package:very_good_supabase/app/app.dart';
 class AuthStateSupabase<T extends StatefulWidget> extends SupabaseAuthState<T> {
   @override
   void onUnauthenticated() {
-    context.read<AppBloc>().add(AppUnauthenticated());
+    if (mounted) {
+      context.read<AppBloc>().add(AppUnauthenticated());
+    }
   }
 
   @override

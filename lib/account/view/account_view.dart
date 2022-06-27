@@ -93,23 +93,28 @@ class _UserNameTextFieldState extends State<_UserNameTextField> {
   final _controller = TextEditingController();
 
   @override
-  @override
   Widget build(BuildContext context) {
-    final state = context.watch<AccountBloc>().state;
-    if (state.status.isSuccess) {
-      _controller.text = state.userName.value;
-    }
-    return Padding(
-      padding: const EdgeInsets.only(top: 18),
-      child: TextFormField(
-        controller: _controller,
-        key: const Key('accountView_userName_textField'),
-        readOnly: state.status.isLoading,
-        textInputAction: TextInputAction.next,
-        onChanged: (userName) =>
-            context.read<AccountBloc>().add(AccountUserNameChanged(userName)),
-        decoration: const InputDecoration(labelText: 'User Name'),
-      ),
+    return BlocConsumer<AccountBloc, AccountState>(
+      listener: (context, state) {
+        if (state.status.isSuccess) {
+          _controller.text = state.userName.value;
+        }
+      },
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.only(top: 18),
+          child: TextFormField(
+            controller: _controller,
+            key: const Key('accountView_userName_textField'),
+            readOnly: state.status.isLoading,
+            textInputAction: TextInputAction.next,
+            onChanged: (userName) => context
+                .read<AccountBloc>()
+                .add(AccountUserNameChanged(userName)),
+            decoration: const InputDecoration(labelText: 'User Name'),
+          ),
+        );
+      },
     );
   }
 
@@ -133,23 +138,28 @@ class _UserCompanyNameTextFieldState extends State<_UserCompanyNameTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<AccountBloc>().state;
-    if (state.status.isSuccess) {
-      _controller.text = state.companyName.value;
-    }
-    return Padding(
-      padding: const EdgeInsets.only(top: 18),
-      child: TextFormField(
-        controller: _controller,
-        key: const Key('accountView_companyName_textField'),
-        readOnly: state.status.isLoading,
-        onChanged: (companyName) => context.read<AccountBloc>().add(
-              AccountCompanyNameChanged(companyName),
+    return BlocConsumer<AccountBloc, AccountState>(
+      listener: (context, state) {
+        if (state.status.isSuccess) {
+          _controller.text = state.companyName.value;
+        }
+      },
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.only(top: 18),
+          child: TextFormField(
+            controller: _controller,
+            key: const Key('accountView_companyName_textField'),
+            readOnly: state.status.isLoading,
+            onChanged: (companyName) => context.read<AccountBloc>().add(
+                  AccountCompanyNameChanged(companyName),
+                ),
+            decoration: const InputDecoration(
+              labelText: 'Company Name',
             ),
-        decoration: const InputDecoration(
-          labelText: 'Company Name',
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -190,11 +200,13 @@ class _SignOutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<AccountBloc>().state;
+    final isLoading = context.select(
+      (AccountBloc bloc) => bloc.state.status == AccountStatus.loading,
+    );
 
     return OutlinedButton(
       key: const Key('accountView_signOut_button'),
-      onPressed: state.status.isLoading
+      onPressed: isLoading
           ? null
           : () => context.read<AccountBloc>().add(AccountSignedOut()),
       child: const Text('Sign Out'),

@@ -75,11 +75,12 @@ class _EmailInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<LoginBloc>().state;
-
+    final isInProgress = context.select(
+      (LoginBloc bloc) => bloc.state.status == FormzSubmissionStatus.inProgress,
+    );
     return TextFormField(
       key: const Key('loginView_emailInput_textField'),
-      readOnly: state.status.isInProgress,
+      readOnly: isInProgress,
       onChanged: (email) {
         context.read<LoginBloc>().add(LoginEmailChanged(email));
       },
@@ -114,11 +115,13 @@ class _SendEmailButton extends StatelessWidget {
 
 @visibleForTesting
 class OpenEmailButton extends StatelessWidget {
-  OpenEmailButton({
+  const OpenEmailButton({
     EmailLauncher? emailLauncher,
     super.key,
-  }) : _emailLauncher = emailLauncher ?? EmailLauncher();
+  }) : _emailLauncher = emailLauncher ?? const EmailLauncher();
+
   final EmailLauncher _emailLauncher;
+
   @override
   Widget build(BuildContext context) {
     final state = context.watch<LoginBloc>().state;

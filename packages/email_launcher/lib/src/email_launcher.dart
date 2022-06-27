@@ -32,7 +32,7 @@ typedef CanLaunchUrlProvider = Future<bool> Function(Uri url);
 /// {@endtemplate}
 class EmailLauncher {
   /// {@macro email_launcher}
-  EmailLauncher({
+  const EmailLauncher({
     LaunchUrlProvider? launchUrlProvider,
     CanLaunchUrlProvider? canLaunchProvider,
   })  : _launchUrlProvider = launchUrlProvider ?? launchUrl,
