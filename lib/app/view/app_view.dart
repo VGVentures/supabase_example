@@ -17,8 +17,8 @@ class AppView extends StatefulWidget {
 class _AppViewState extends AuthStateSupabase<AppView> {
   @override
   void initState() {
-    recoverSupabaseSession();
     super.initState();
+    recoverSupabaseSession();
   }
 
   @override

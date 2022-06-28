@@ -59,11 +59,15 @@ void main() {
     group('adds', () {
       testWidgets('AccountUserNameChanged when user name is changed',
           (tester) async {
-        when(() => accountBloc.state).thenReturn(
-          AccountState(
-            status: AccountStatus.success,
-            valid: true,
-          ),
+        whenListen(
+          accountBloc,
+          Stream.fromIterable(const <AccountState>[
+            AccountState(status: AccountStatus.edit),
+            AccountState(
+              status: AccountStatus.success,
+              valid: true,
+            ),
+          ]),
         );
 
         await tester.pumpApp(
@@ -81,8 +85,15 @@ void main() {
 
       testWidgets('AccountCompanyNameChanged when company name is changed',
           (tester) async {
-        when(() => accountBloc.state).thenReturn(
-          AccountState(status: AccountStatus.success),
+        whenListen(
+          accountBloc,
+          Stream.fromIterable(const <AccountState>[
+            AccountState(status: AccountStatus.edit),
+            AccountState(
+              status: AccountStatus.success,
+              valid: true,
+            ),
+          ]),
         );
         await tester.pumpApp(
           BlocProvider.value(

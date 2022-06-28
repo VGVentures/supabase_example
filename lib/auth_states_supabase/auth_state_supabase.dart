@@ -6,7 +6,9 @@ import 'package:very_good_supabase/app/app.dart';
 class AuthStateSupabase<T extends StatefulWidget> extends SupabaseAuthState<T> {
   @override
   void onUnauthenticated() {
-    context.read<AppBloc>().add(AppUnauthenticated());
+    if (mounted) {
+      context.read<AppBloc>().add(AppUnauthenticated());
+    }
   }
 
   @override
@@ -16,11 +18,9 @@ class AuthStateSupabase<T extends StatefulWidget> extends SupabaseAuthState<T> {
     }
   }
 
-// coverage:ignore-start
   @override
   void onPasswordRecovery(Session session) {}
 
   @override
   void onErrorAuthenticating(String message) {}
-// coverage:ignore-end
 }

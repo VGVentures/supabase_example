@@ -50,6 +50,30 @@ void main() {
       await tester.pumpAndSettle();
       verify(() => appBloc.add(AppAuthenticated())).called(1);
     });
+
+    testWidgets('onPasswordRecovery returns normally', (tester) async {
+      await tester.pumpApp(AuthStateWidget(), appBloc: appBloc);
+      expect(
+        () => tester
+            .state<_AuthStateWidgetState>(find.byType(AuthStateWidget))
+            .onPasswordRecovery(FakeSession()),
+        returnsNormally,
+      );
+      await tester.pumpAndSettle();
+      verifyNever(() => appBloc.add(AppAuthenticated()));
+    });
+
+    testWidgets('onErrorAuthenticating returns normally', (tester) async {
+      await tester.pumpApp(AuthStateWidget(), appBloc: appBloc);
+      expect(
+        () => tester
+            .state<_AuthStateWidgetState>(find.byType(AuthStateWidget))
+            .onErrorAuthenticating(''),
+        returnsNormally,
+      );
+      await tester.pumpAndSettle();
+      verifyNever(() => appBloc.add(AppAuthenticated()));
+    });
   });
 }
 
